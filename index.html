@@ -22,7 +22,7 @@
                     colors: {
                         primary: { 50: '#eef2ff', 100: '#e0e7ff', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca' },
                         slate: { 800: '#1e293b', 900: '#0f172a' },
-                        chicago: { 800: '#0f172a', 900: '#020617' } // Ajustado para tom genérico
+                        chicago: { 800: '#0f172a', 900: '#020617' } 
                     }
                 }
             }
@@ -44,33 +44,10 @@
         ::-webkit-scrollbar-thumb:hover { background: #6366f1; }
         .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
         .dark .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); }
-        
-        /* Fundo desfocado para o Login */
-        .blur-bg { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
     </style>
 </head>
 <body class="bg-gray-50 dark:bg-slate-900 text-gray-900 dark:text-gray-100 h-screen flex overflow-hidden transition-colors duration-300 selection:bg-primary-500 selection:text-white">
 
-    <div id="loginOverlay" class="fixed inset-0 z-[100] bg-slate-900/80 blur-bg flex items-center justify-center p-4 transition-opacity duration-500">
-        <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl p-8 w-full max-w-sm border border-gray-200 dark:border-slate-700 text-center transform transition-transform">
-            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary-100 dark:bg-primary-500/10 mb-5 shadow-inner">
-                <i data-lucide="shield-check" class="text-primary-600 dark:text-primary-400" size="32"></i>
-            </div>
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Acesso Restrito</h2>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-2 mb-8">Insira a senha da equipe de QA para acessar o Gestor de Serviços.</p>
-            
-            <div class="space-y-4">
-                <input type="password" id="passInput" class="w-full px-4 py-3.5 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-xl text-lg focus:ring-2 focus:ring-primary-500 outline-none dark:text-white text-center tracking-[0.3em] font-mono transition-all" placeholder="••••••••" onkeypress="if(event.key === 'Enter') app.checkLogin()">
-                <button onclick="app.checkLogin()" class="w-full px-4 py-3.5 bg-primary-600 hover:bg-primary-700 text-white text-sm font-bold rounded-xl shadow-lg shadow-primary-500/30 transition-all active:scale-95 flex items-center justify-center gap-2">
-                    Desbloquear <i data-lucide="arrow-right" size="16"></i>
-                </button>
-            </div>
-            <p id="loginError" class="text-xs text-red-500 mt-4 hidden font-medium flex items-center justify-center gap-1">
-                <i data-lucide="alert-circle" size="14"></i> Senha incorreta. Tente novamente.
-            </p>
-        </div>
-    </div>
-    
     <aside class="w-72 bg-white dark:bg-slate-800 border-r border-gray-200 dark:border-slate-700 flex flex-col z-20 hidden md:flex transition-colors duration-300 h-full">
         <div class="p-8 shrink-0">
             <h1 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white flex items-center gap-3">
@@ -330,7 +307,6 @@
     </main>
 
     <script>
-        // Array de dados ajustado para área genérica de testes (removidos os dados de bancos específicos)
         const DB = {
             marcas: ["App E-commerce Alpha", "Plataforma SaaS Beta", "ERP Global System", "Logistics Delivery Hub", "HealthTech Portal", "Sistema de Gestão RH", "Gateway de Pagamentos X", "App Mobile Cliente Final", "Dashboard Analítico"],
             testes: ["E2E Checkout Workflow", "Carga de Dados - Stress Test", "Batch Processing Retry", "Smoke Test - Login", "CRUD - Criação de Usuário", "Fluxo de Aprovação de Compra", "Recuperação de Senha Segura", "Validação de Token JWT", "Sincronização Offline", "Geração de Relatório Export"]
@@ -338,7 +314,6 @@
 
         const app = {
             init: function() {
-                this.verifyAuthStatus();
                 this.populateLists();
                 if(document.getElementById('logData')) document.getElementById('logData').valueAsDate = new Date();
                 this.renderTable();
@@ -355,67 +330,6 @@
 
                 this.switchTab('nomenclatura'); 
                 chicago.loadSession(); 
-            },
-
-            checkLogin: function() {
-                const input = document.getElementById('passInput').value;
-                const error = document.getElementById('loginError');
-                
-                // Senha mantida igual original: qa2026 (em Base64)
-                const SENHA_B64 = "cWEyMDI2"; 
-
-                if (btoa(input) === SENHA_B64) {
-                    sessionStorage.setItem('qa_auth', 'true');
-                    sessionStorage.setItem('qa_last_activity', Date.now());
-                    
-                    document.getElementById('loginOverlay').classList.add('opacity-0');
-                    setTimeout(() => { document.getElementById('loginOverlay').style.display = 'none'; }, 300);
-                    
-                    this.iniciarMonitoramentoInatividade();
-                } else {
-                    error.classList.remove('hidden');
-                    document.getElementById('passInput').value = '';
-                    document.getElementById('passInput').focus();
-                }
-            },
-
-            verifyAuthStatus: function() {
-                const TEMPO_LIMITE_MINUTOS = 15;
-                if (sessionStorage.getItem('qa_auth') === 'true') {
-                    const ultimaAtividade = parseInt(sessionStorage.getItem('qa_last_activity') || '0');
-                    const tempoOcioso = (Date.now() - ultimaAtividade) / 1000 / 60;
-                    
-                    if (tempoOcioso > TEMPO_LIMITE_MINUTOS) {
-                        this.logoutPorInatividade();
-                    } else {
-                        document.getElementById('loginOverlay').style.display = 'none';
-                        this.iniciarMonitoramentoInatividade();
-                    }
-                }
-            },
-
-            iniciarMonitoramentoInatividade: function() {
-                document.onmousemove = () => this.resetarTempo();
-                document.onkeypress = () => this.resetarTempo();
-                document.ontouchstart = () => this.resetarTempo();
-                this.resetarTempo();
-            },
-
-            resetarTempo: function() {
-                const TEMPO_LIMITE_MINUTOS = 15;
-                if (sessionStorage.getItem('qa_auth') === 'true') {
-                    sessionStorage.setItem('qa_last_activity', Date.now());
-                    clearTimeout(window.timeoutInatividade);
-                    window.timeoutInatividade = setTimeout(() => app.logoutPorInatividade(), TEMPO_LIMITE_MINUTOS * 60000);
-                }
-            },
-
-            logoutPorInatividade: function() {
-                sessionStorage.removeItem('qa_auth');
-                const overlay = document.getElementById('loginOverlay');
-                overlay.style.display = 'flex';
-                setTimeout(() => overlay.classList.remove('opacity-0'), 10);
-                this.showToast("Sessão expirada por inatividade.", "error");
             },
 
             populateLists: function() {
@@ -502,7 +416,6 @@
             },
             checkSync: function() { 
                 const f = { teste: document.getElementById('logTeste').value, marca: document.getElementById('logMarca').value, seg: document.getElementById('logSegmento').value, status: document.getElementById('logStatus').value, data: document.getElementById('logData').value };
-                // Alterado para refletir nomes de testes genéricos de QA
                 const triggers = ["E2E Checkout Workflow", "Carga de Dados - Stress Test", "Batch Processing Retry"];
                 if (triggers.includes(f.teste) && f.marca && f.status === 'PASS') {
                     document.getElementById('agendaMarca').value = f.marca;
@@ -520,7 +433,6 @@
                 const seg = document.getElementById('agendaSegmento').value;
                 if (!type || !startStr) return;
                 
-                // Alterada a lógica PIX para lógicas genéricas de agendamento de QA
                 const isLongo = type.includes("Retry") || type.includes("Carga");
                 const days = isLongo ? 3 : 2;
                 const start = new Date(startStr + 'T00:00:00');
@@ -616,25 +528,21 @@
             }
         };
 
-        // ==========================================
-        // MÓDULO: GERADOR DE PAYLOAD (EX-CHICAGO)
-        // ==========================================
         const chicago = {
             getCampos: function() {
-                // Utilizando os mesmos IDs do HTML original para preservar o código estrutural
                 return {
                     usuario: document.getElementById('chi_usuario').value,
-                    cpf: document.getElementById('chi_cpf').value, // Agora atua como ID/Reference
-                    empresa: document.getElementById('chi_empresa').value, // Agora Token
-                    cnpj: document.getElementById('chi_cnpj').value, // Agora Sessao ID
-                    ispb: document.getElementById('chi_ispb').value, // Agora Email
-                    ispbpj: document.getElementById('chi_ispbpj').value, // Agora Valor
-                    issuer: document.getElementById('chi_issuer').value, // Agora Telefone
-                    issuerpj: document.getElementById('chi_issuerpj').value, // Agora Moeda
-                    conta: document.getElementById('chi_conta').value, // Agora Perfil
-                    contapj: document.getElementById('chi_contapj').value, // Agora Dispositivo Origem
-                    tipo: document.getElementById('chi_tipo').value.toUpperCase(), // Agora Status Conta
-                    tipopj: document.getElementById('chi_tipopj').value // Agora IP Cliente
+                    cpf: document.getElementById('chi_cpf').value, 
+                    empresa: document.getElementById('chi_empresa').value, 
+                    cnpj: document.getElementById('chi_cnpj').value, 
+                    ispb: document.getElementById('chi_ispb').value, 
+                    ispbpj: document.getElementById('chi_ispbpj').value, 
+                    issuer: document.getElementById('chi_issuer').value, 
+                    issuerpj: document.getElementById('chi_issuerpj').value, 
+                    conta: document.getElementById('chi_conta').value, 
+                    contapj: document.getElementById('chi_contapj').value, 
+                    tipo: document.getElementById('chi_tipo').value.toUpperCase(), 
+                    tipopj: document.getElementById('chi_tipopj').value 
                 };
             },
 
@@ -713,7 +621,6 @@
                 const d = this.getCampos();
                 let payload = { "metadata": {}, "data": {} };
                 
-                // Mapeamentos construídos baseados nas opções de ambiente e teste (staging ou prod)
                 const isProd = type.includes('prod');
                 const envStr = isProd ? "production" : "staging";
 
@@ -768,7 +675,6 @@
             }
         };
 
-        // INICIALIZAR SISTEMA GERAL
         document.addEventListener('DOMContentLoaded', () => app.init());
     </script>
 </body>
