@@ -1,15 +1,115 @@
-<main class="flex-1 overflow-y-auto p-4 md:p-10">
-    <div class="space-y-8 max-w-6xl mx-auto">
-        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden ring-1 ring-black/5">
-            <div class="px-8 py-5 border-b border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800">
-                <h2 class="text-lg font-bold text-gray-900 dark:text-white">Gerador de Relatórios</h2>
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Padronização de resultados (FAIL / PASS).</p>
-            </div>
-            <div class="p-8 grid grid-cols-1 md:grid-cols-12 gap-6">
-                <div class="md:col-span-12 space-y-2"><label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status do Teste</label><select class="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-xl text-sm dark:text-white"><option>2. Erro de Interface: Quebra de UI</option></select></div>
-                <div class="md:col-span-4 space-y-2"><label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Versão do Build</label><input type="text" class="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-xl text-sm dark:text-white" value="v2.1.0"></div>
-                <div class="md:col-span-12 space-y-2 mt-4"><label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Análise do QA</label><textarea class="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-xl text-sm font-mono h-24 resize-none dark:text-gray-300">Comportamento diverge da Acceptance Criteria.</textarea></div>
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios | Gestor de Serviços QA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+                    colors: {
+                        primary: { 50: '#eef2ff', 100: '#e0e7ff', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca' },
+                        slate: { 800: '#1e293b', 900: '#0f172a' }
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-slate-900 text-gray-900 dark:text-gray-100 h-screen flex overflow-hidden">
+
+    <aside class="w-72 bg-white dark:bg-slate-800 border-r border-gray-200 dark:border-slate-700 flex flex-col z-20 h-full">
+        <div class="p-8 shrink-0">
+            <h1 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white flex items-center gap-3">
+                <div class="p-2 bg-primary-100 dark:bg-primary-500/10 rounded-lg"><i data-lucide="layers" class="text-primary-600 dark:text-primary-400"></i></div>
+                <div>Gestor<span class="text-primary-600 dark:text-primary-400">Serviços</span></div>
+            </h1>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2 font-medium">QA Automation Suite v5.1</p>
+        </div>
+
+        <nav class="flex-1 px-6 space-y-2 overflow-y-auto">
+            <div class="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-3 mt-4 px-4">Testes UI</div>
+            <a href="nomenclatura.html" class="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-700/50 transition-all">
+                <i data-lucide="file-signature" size="20"></i> Nomenclatura
+            </a>
+            <a href="agendamentos.html" class="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-700/50 transition-all">
+                <i data-lucide="calendar-clock" size="20"></i> Agendamentos
+            </a>
+            <a href="relatorios.html" class="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl bg-primary-600 text-white shadow-lg shadow-primary-500/20">
+                <i data-lucide="clipboard-list" size="20"></i> Relatórios
+            </a>
+
+            <div class="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-3 mt-8 px-4">Testes API</div>
+            <a href="payload.html" class="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-700/50 transition-all">
+                <i data-lucide="braces" size="20"></i> Gerador de Payload
+            </a>
+        </nav>
+    </aside>
+
+    <main class="flex-1 overflow-y-auto p-4 md:p-10">
+        <div class="space-y-8 max-w-6xl mx-auto">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden ring-1 ring-black/5">
+                <div class="px-8 py-5 border-b border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800">
+                    <h2 class="text-lg font-bold text-gray-900 dark:text-white">Gerador de Relatórios</h2>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Padronização de resultados (FAIL / PASS).</p>
+                </div>
+                <div class="p-8 grid grid-cols-1 md:grid-cols-12 gap-6">
+                    <div class="md:col-span-12 space-y-2">
+                        <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Selecione o status ou etapa do teste</label>
+                        <select class="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-xl text-sm dark:text-white">
+                            <option>2. Erro de Interface: Elemento não encontrado/Quebra de UI</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-4 space-y-2">
+                        <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Versão do Build</label>
+                        <input type="text" class="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-xl text-sm dark:text-white" value="v1.0.5">
+                    </div>
+                    <div class="md:col-span-4 space-y-2">
+                        <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Nº Tentativas</label>
+                        <input type="number" class="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-xl text-sm dark:text-white" value="1">
+                    </div>
+                    <div class="md:col-span-4 space-y-2">
+                        <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Plataforma</label>
+                        <select class="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-xl text-sm dark:text-white">
+                            <option>Desktop Web</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-12 space-y-2">
+                        <div class="flex justify-between items-center">
+                            <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Análise do QA</label>
+                            <button class="text-xs text-primary-600 font-semibold flex items-center gap-1"><i data-lucide="plus-circle" size="14"></i> Texto Padrão (Jira)</button>
+                        </div>
+                        <textarea class="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-xl text-sm font-mono h-24 resize-none dark:text-gray-300">Conforme validação no ambiente de homologação, o comportamento atual diverge da Acceptance Criteria descrita na User Story.</textarea>
+                    </div>
+                </div>
+                <div class="border-t border-gray-200 dark:border-slate-700 bg-gray-50/80 dark:bg-slate-900/30 p-6">
+                    <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 block">Preview</label>
+                    <div class="relative">
+                        <textarea readonly class="w-full p-4 text-sm font-mono text-gray-700 dark:text-gray-300 bg-white dark:bg-slate-950 border border-gray-200 dark:border-slate-700 rounded-xl h-48 resize-none">Prezados, realizamos o teste, porém encontramos um erro de interface (quebra de layout ou elemento não clicável).
+Anexo a evidência e logs de execução no ticket.
+
+Versão do build: v1.0.5
+Número de tentativas: 1
+Plataforma: Desktop Web
+Análise do QA: Conforme validação no ambiente de homologação, o comportamento atual diverge da Acceptance Criteria descrita na User Story.</textarea>
+                        <button class="absolute top-3 right-3 px-4 py-2 bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-300 text-xs font-bold rounded-lg border border-gray-200 dark:border-slate-600 flex items-center gap-2"><i data-lucide="copy" size="14"></i> Copiar</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</main>
+    </main>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

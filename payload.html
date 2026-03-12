@@ -27,4 +27,160 @@
             </div>
         </div>
     </div>
-</main>
+</main><!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Payload | Gestor de Serviços QA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+                    colors: {
+                        primary: { 50: '#eef2ff', 100: '#e0e7ff', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca' },
+                        slate: { 800: '#1e293b', 900: '#0f172a' },
+                        chicago: { 800: '#0f172a', 900: '#020617' } 
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-slate-900 text-gray-900 dark:text-gray-100 h-screen flex overflow-hidden">
+
+    <aside class="w-72 bg-white dark:bg-slate-800 border-r border-gray-200 dark:border-slate-700 flex flex-col z-20 h-full">
+        <div class="p-8 shrink-0">
+            <h1 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white flex items-center gap-3">
+                <div class="p-2 bg-primary-100 dark:bg-primary-500/10 rounded-lg"><i data-lucide="layers" class="text-primary-600 dark:text-primary-400"></i></div>
+                <div>Gestor<span class="text-primary-600 dark:text-primary-400">Serviços</span></div>
+            </h1>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2 font-medium">QA Automation Suite v5.1</p>
+        </div>
+
+        <nav class="flex-1 px-6 space-y-2 overflow-y-auto">
+            <div class="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-3 mt-4 px-4">Testes UI</div>
+            <a href="nomenclatura.html" class="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-700/50 transition-all">
+                <i data-lucide="file-signature" size="20"></i> Nomenclatura
+            </a>
+            <a href="agendamentos.html" class="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-700/50 transition-all">
+                <i data-lucide="calendar-clock" size="20"></i> Agendamentos
+            </a>
+            <a href="relatorios.html" class="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-700/50 transition-all">
+                <i data-lucide="clipboard-list" size="20"></i> Relatórios
+            </a>
+
+            <div class="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-3 mt-8 px-4">Testes API</div>
+            <a href="payload.html" class="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl bg-primary-600 text-white shadow-lg shadow-primary-500/20">
+                <i data-lucide="braces" size="20"></i> Gerador de Payload
+            </a>
+        </nav>
+    </aside>
+
+    <main class="flex-1 overflow-y-auto p-4 md:p-10">
+        <div class="space-y-8 max-w-7xl mx-auto">
+            
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-4">
+                    <div class="p-3 bg-chicago-800 rounded-xl shadow-lg shadow-chicago-800/30 text-white"><i data-lucide="braces" size="24"></i></div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Gerador de Payload API</h2>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Geração de massa de dados estruturada para testes automatizados.</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button class="px-3 py-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg text-sm text-gray-700 dark:text-gray-300 flex items-center gap-2"><i data-lucide="download" size="16"></i> Backup Local</button>
+                    <button class="px-3 py-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg text-sm text-gray-700 dark:text-gray-300 flex items-center gap-2"><i data-lucide="upload" size="16"></i> Restaurar</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 xl:grid-cols-12 gap-8">
+                
+                <div class="xl:col-span-5 space-y-6">
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden ring-1 ring-black/5">
+                        <div class="px-6 py-4 border-b border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800 flex justify-between items-center">
+                            <h3 class="font-bold text-gray-900 dark:text-white flex items-center gap-2"><i data-lucide="database" size="18" class="text-primary-500"></i> Configuração de Massa (QA)</h3>
+                            <button class="text-xs px-4 py-2 bg-primary-600 text-white rounded-lg flex items-center gap-1.5 font-medium"><i data-lucide="save" size="14"></i> Salvar Dados</button>
+                        </div>
+                        
+                        <div class="p-6 max-h-[600px] overflow-y-auto space-y-8">
+                            <div class="space-y-4">
+                                <h4 class="text-sm font-bold text-primary-600 dark:text-primary-400 uppercase tracking-wider border-b border-gray-200 dark:border-slate-700 pb-2 flex items-center gap-2"><i data-lucide="user" size="16"></i> Dados do Usuário</h4>
+                                <div><label class="text-xs font-bold text-gray-500 block mb-1">Nome Completo</label><input type="text" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-lg text-sm dark:text-white" value="Usuário de Teste"></div>
+                                <div><label class="text-xs font-bold text-gray-500 block mb-1">ID / Referência Única</label><input type="text" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-lg text-sm dark:text-white font-mono" value="UID-998877"></div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div><label class="text-xs font-bold text-gray-500 block mb-1">E-mail</label><input type="email" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-lg text-sm dark:text-white" value="qa@teste.com"></div>
+                                    <div><label class="text-xs font-bold text-gray-500 block mb-1">Telefone</label><input type="text" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-lg text-sm dark:text-white" value="+5511999999999"></div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-4 pt-4">
+                                <h4 class="text-sm font-bold text-pink-600 dark:text-pink-400 uppercase tracking-wider border-b border-gray-200 dark:border-slate-700 pb-2 flex items-center gap-2"><i data-lucide="server" size="16"></i> Contexto / Transação</h4>
+                                <div><label class="text-xs font-bold text-gray-500 block mb-1">Token de Autorização</label><input type="text" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-lg text-sm dark:text-white font-mono" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."></div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div><label class="text-xs font-bold text-gray-500 block mb-1">Valor / Montante</label><input type="text" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-lg text-sm dark:text-white font-mono" value="150.00"></div>
+                                    <div><label class="text-xs font-bold text-gray-500 block mb-1">Moeda / Tipo</label><input type="text" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-lg text-sm dark:text-white font-mono" value="BRL"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="xl:col-span-7 space-y-6 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden flex-shrink-0">
+                        <div class="p-6 bg-gradient-to-r from-gray-50 to-white dark:from-slate-800 dark:to-slate-800/80 border-b border-gray-200 dark:border-slate-700">
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+                                <div class="md:col-span-3">
+                                    <label class="text-xs font-bold text-gray-500 uppercase block mb-2">Ambiente</label>
+                                    <select class="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-600 rounded-xl text-sm font-semibold dark:text-white">
+                                        <option>Staging</option>
+                                    </select>
+                                </div>
+                                <div class="md:col-span-6">
+                                    <label class="text-xs font-bold text-gray-500 uppercase block mb-2">Teste a ser realizado</label>
+                                    <select class="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-600 rounded-xl text-sm font-semibold dark:text-white">
+                                        <option>POST /api/v1/auth/login</option>
+                                    </select>
+                                </div>
+                                <div class="md:col-span-3">
+                                    <button class="w-full px-4 py-3 bg-gray-900 dark:bg-primary-600 text-white text-sm font-bold rounded-xl flex items-center justify-center gap-2"><i data-lucide="terminal" size="18"></i> Chamada API</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-[#1e1e1e] rounded-2xl shadow-xl flex-1 flex flex-col overflow-hidden border border-gray-800 min-h-[400px]">
+                        <div class="px-5 py-3 bg-[#2d2d2d] flex justify-between items-center border-b border-black">
+                            <span class="text-xs font-mono text-gray-400 flex items-center gap-2"><i data-lucide="terminal" size="14"></i> payload_request.json</span>
+                            <button class="text-xs font-bold text-gray-300 bg-white/10 px-4 py-1.5 rounded-lg flex items-center gap-2"><i data-lucide="copy" size="14"></i> Copiar</button>
+                        </div>
+                        <textarea readonly class="flex-1 w-full bg-transparent text-green-400 font-mono text-sm p-6 resize-none outline-none">{
+    "metadata": {
+        "timestamp": "2026-03-12T17:00:00.000Z",
+        "environment": "staging"
+    },
+    "data": {
+        "user_id": "UID-998877",
+        "email": "qa@teste.com",
+        "security_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    }
+}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>
