@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Dashboard | Gestor de Serviços QA</title>
+    <title>Login | Gestor de Serviços QA</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -19,7 +18,10 @@
                     },
                     colors: {
                         primary: { 50: '#eef2ff', 100: '#e0e7ff', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca' },
-                        slate: { 800: '#1e293b', 900: '#0f172a' }
+                        slate: { 800: '#1e293b', 900: '#0f172a', 950: '#020617' }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     }
                 }
             }
@@ -31,98 +33,104 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
         
-        .fade-in { animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        body { background-color: #020617; overflow: hidden; }
         
-        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); }
+        .fade-in { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .glass-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
     </style>
 </head>
-<body class="bg-gray-50 dark:bg-slate-900 text-gray-900 dark:text-gray-100 min-h-screen flex items-center justify-center p-6 selection:bg-primary-500 selection:text-white transition-colors duration-300">
+<body class="text-white h-screen w-screen flex items-center justify-center relative selection:bg-primary-500 selection:text-white">
 
-    <main class="w-full max-w-5xl fade-in">
+    <div class="absolute top-[-20%] left-[-10%] w-[50vw] h-[50vw] bg-primary-600/10 rounded-full blur-[120px] animate-pulse-slow"></div>
+    <div class="absolute bottom-[-20%] right-[-10%] w-[40vw] h-[40vw] bg-purple-600/10 rounded-full blur-[150px] animate-pulse-slow" style="animation-delay: 2s;"></div>
+
+    <div class="absolute inset-0" style="background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 32px 32px;"></div>
+
+    <main class="relative z-10 w-full max-w-md px-6 fade-in">
         
-        <div class="text-center mb-12">
-            <div class="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-primary-100 dark:bg-primary-500/10 mb-6 shadow-inner ring-1 ring-primary-500/20">
-                <i data-lucide="layers" class="text-primary-600 dark:text-primary-400" size="40"></i>
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/5 border border-white/10 mb-6 shadow-inner relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-primary-500/20 to-transparent"></div>
+                <i data-lucide="layers" class="text-primary-400 relative z-10" size="32"></i>
             </div>
-            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-4">
-                Gestor de <span class="text-primary-600 dark:text-primary-400">Serviços QA</span>
-            </h1>
-            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Selecione um dos módulos abaixo para acessar as ferramentas de automação, padronização e testes estruturados.
-            </p>
+            <h1 class="text-3xl font-extrabold tracking-tight text-white mb-2">Bem-vindo de volta</h1>
+            <p class="text-sm text-gray-400 font-medium">Faça login para acessar o Gestor de Serviços QA</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8">
+        <div class="glass-card rounded-3xl p-8 md:p-10">
+            <form onsubmit="event.preventDefault(); window.location.href='index.html';" class="space-y-6">
+                
+                <div class="space-y-2">
+                    <label class="text-xs font-bold text-gray-400 uppercase tracking-wider">E-mail corporativo</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-500">
+                            <i data-lucide="mail" size="18"></i>
+                        </div>
+                        <input type="email" value="ygor.designer@empresa.com" class="w-full pl-11 pr-4 py-3.5 bg-slate-900/50 border border-slate-700 rounded-xl text-sm text-white focus:ring-2 focus:ring-primary-500 outline-none transition-all placeholder-gray-600" placeholder="voce@empresa.com">
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center">
+                        <label class="text-xs font-bold text-gray-400 uppercase tracking-wider">Senha</label>
+                        <a href="#" class="text-xs font-semibold text-primary-400 hover:text-primary-300 transition-colors">Esqueceu a senha?</a>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-500">
+                            <i data-lucide="lock" size="18"></i>
+                        </div>
+                        <input type="password" value="••••••••" class="w-full pl-11 pr-12 py-3.5 bg-slate-900/50 border border-slate-700 rounded-xl text-sm text-white focus:ring-2 focus:ring-primary-500 outline-none transition-all tracking-widest font-mono" placeholder="••••••••">
+                        <button type="button" class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-500 hover:text-gray-300 transition-colors">
+                            <i data-lucide="eye" size="18"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 pt-2">
+                    <div class="relative flex items-start">
+                        <div class="flex items-center h-5">
+                            <input type="checkbox" checked class="w-4 h-4 bg-slate-900 border-slate-700 rounded text-primary-500 focus:ring-primary-500 focus:ring-offset-slate-800 accent-primary-500 cursor-pointer">
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label class="font-medium text-gray-400 cursor-pointer">Lembrar-me neste dispositivo</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-4 bg-primary-600 hover:bg-primary-500 text-white text-sm font-bold rounded-xl shadow-[0_0_20px_rgba(99,102,241,0.3)] transition-all active:scale-[0.98] flex items-center justify-center gap-2 mt-4">
+                    Acessar Plataforma <i data-lucide="arrow-right" size="18"></i>
+                </button>
+
+            </form>
+
+            <div class="mt-8 mb-6 flex items-center">
+                <div class="flex-grow border-t border-white/10"></div>
+                <span class="flex-shrink-0 mx-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Ou continue com</span>
+                <div class="flex-grow border-t border-white/10"></div>
+            </div>
+
+            <button type="button" class="w-full py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white text-sm font-semibold rounded-xl transition-all flex items-center justify-center gap-3">
+                <i data-lucide="shield" size="18" class="text-gray-400"></i> SSO Corporativo
+            </button>
             
-            <a href="nomenclatura.html" class="card-hover block bg-white dark:bg-slate-800 rounded-3xl p-8 border border-gray-200 dark:border-slate-700 transition-all duration-300 group ring-1 ring-black/5">
-                <div class="flex items-start gap-5">
-                    <div class="p-4 rounded-2xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform duration-300 shrink-0">
-                        <i data-lucide="file-signature" size="28"></i>
-                    </div>
-                    <div>
-                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">Nomenclatura de Testes</h2>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">Gere logs e evidências padronizadas para garantir o rastreio correto em suas suítes de teste de interface (UI).</p>
-                    </div>
-                </div>
-            </a>
-
-            <a href="agendamentos.html" class="card-hover block bg-white dark:bg-slate-800 rounded-3xl p-8 border border-gray-200 dark:border-slate-700 transition-all duration-300 group ring-1 ring-black/5">
-                <div class="flex items-start gap-5">
-                    <div class="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform duration-300 shrink-0">
-                        <i data-lucide="calendar-clock" size="28"></i>
-                    </div>
-                    <div>
-                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">Agendamentos</h2>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">Planeje e acompanhe cronogramas de testes de longa duração, como stress tests e processamentos em lote.</p>
-                    </div>
-                </div>
-            </a>
-
-            <a href="relatorios.html" class="card-hover block bg-white dark:bg-slate-800 rounded-3xl p-8 border border-gray-200 dark:border-slate-700 transition-all duration-300 group ring-1 ring-black/5">
-                <div class="flex items-start gap-5">
-                    <div class="p-4 rounded-2xl bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 group-hover:scale-110 transition-transform duration-300 shrink-0">
-                        <i data-lucide="clipboard-list" size="28"></i>
-                    </div>
-                    <div>
-                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">Relatórios de Execução</h2>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">Elabore reports técnicos (PASS/FAIL) com textos padrão formatados diretamente para anexar aos seus tickets.</p>
-                    </div>
-                </div>
-            </a>
-
-            <a href="payload.html" class="card-hover block bg-white dark:bg-slate-800 rounded-3xl p-8 border border-gray-200 dark:border-slate-700 transition-all duration-300 group ring-1 ring-black/5">
-                <div class="flex items-start gap-5">
-                    <div class="p-4 rounded-2xl bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform duration-300 shrink-0">
-                        <i data-lucide="braces" size="28"></i>
-                    </div>
-                    <div>
-                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Gerador de Payload (API)</h2>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">Crie massa de dados estruturada em JSON dinamicamente para facilitar as chamadas em testes de integração.</p>
-                    </div>
-                </div>
-            </a>
-
         </div>
 
-        <div class="mt-16 text-center">
-            <p class="text-sm text-gray-400 dark:text-gray-500 font-medium">
-                QA Automation Framework • Desenvolvido para Portfólio
-            </p>
+        <div class="mt-8 text-center flex items-center justify-center gap-2 text-xs text-gray-500 font-medium">
+            <i data-lucide="lock" size="12"></i> Ambiente Seguro e Criptografado
         </div>
 
     </main>
 
     <script>
-        // Inicializa os ícones do Lucide
         lucide.createIcons();
-
-        // Checa a preferência de tema do usuário (Dark Mode)
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
     </script>
 </body>
 </html>

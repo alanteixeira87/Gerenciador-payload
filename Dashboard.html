@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Dashboard | Gestor de Serviços QA</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        primary: { 50: '#eef2ff', 100: '#e0e7ff', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca' },
+                        slate: { 800: '#1e293b', 900: '#0f172a' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        
+        .fade-in { animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-slate-900 text-gray-900 dark:text-gray-100 min-h-screen flex items-center justify-center p-6 selection:bg-primary-500 selection:text-white transition-colors duration-300">
+
+    <main class="w-full max-w-5xl fade-in">
+        
+        <div class="text-center mb-12">
+            <div class="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-primary-100 dark:bg-primary-500/10 mb-6 shadow-inner ring-1 ring-primary-500/20">
+                <i data-lucide="layers" class="text-primary-600 dark:text-primary-400" size="40"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-4">
+                Gestor de <span class="text-primary-600 dark:text-primary-400">Serviços QA</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Selecione um dos módulos abaixo para acessar as ferramentas de automação, padronização e testes estruturados.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8">
+            
+            <a href="nomenclatura.html" class="card-hover block bg-white dark:bg-slate-800 rounded-3xl p-8 border border-gray-200 dark:border-slate-700 transition-all duration-300 group ring-1 ring-black/5">
+                <div class="flex items-start gap-5">
+                    <div class="p-4 rounded-2xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform duration-300 shrink-0">
+                        <i data-lucide="file-signature" size="28"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">Nomenclatura de Testes</h2>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">Gere logs e evidências padronizadas para garantir o rastreio correto em suas suítes de teste de interface (UI).</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="agendamentos.html" class="card-hover block bg-white dark:bg-slate-800 rounded-3xl p-8 border border-gray-200 dark:border-slate-700 transition-all duration-300 group ring-1 ring-black/5">
+                <div class="flex items-start gap-5">
+                    <div class="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform duration-300 shrink-0">
+                        <i data-lucide="calendar-clock" size="28"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">Agendamentos</h2>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">Planeje e acompanhe cronogramas de testes de longa duração, como stress tests e processamentos em lote.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="relatorios.html" class="card-hover block bg-white dark:bg-slate-800 rounded-3xl p-8 border border-gray-200 dark:border-slate-700 transition-all duration-300 group ring-1 ring-black/5">
+                <div class="flex items-start gap-5">
+                    <div class="p-4 rounded-2xl bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 group-hover:scale-110 transition-transform duration-300 shrink-0">
+                        <i data-lucide="clipboard-list" size="28"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">Relatórios de Execução</h2>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">Elabore reports técnicos (PASS/FAIL) com textos padrão formatados diretamente para anexar aos seus tickets.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="payload.html" class="card-hover block bg-white dark:bg-slate-800 rounded-3xl p-8 border border-gray-200 dark:border-slate-700 transition-all duration-300 group ring-1 ring-black/5">
+                <div class="flex items-start gap-5">
+                    <div class="p-4 rounded-2xl bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform duration-300 shrink-0">
+                        <i data-lucide="braces" size="28"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Gerador de Payload (API)</h2>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">Crie massa de dados estruturada em JSON dinamicamente para facilitar as chamadas em testes de integração.</p>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="mt-16 text-center">
+            <p class="text-sm text-gray-400 dark:text-gray-500 font-medium">
+                QA Automation Framework • Desenvolvido para Portfólio
+            </p>
+        </div>
+
+    </main>
+
+    <script>
+        // Inicializa os ícones do Lucide
+        lucide.createIcons();
+
+        // Checa a preferência de tema do usuário (Dark Mode)
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</body>
+</html>
